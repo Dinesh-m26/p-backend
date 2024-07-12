@@ -12,13 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // Database connection
 const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI)
-    .then(() => {
-        console.log("Connected to DB");
-    })
-    .catch((error) => {
-        console.error("DB connection error:", error);
-    });
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000  // 30 seconds timeout
+})
+.then(() => console.log("Connected to DB"))
+.catch((error) => console.error("DB connection error:", error));
 
 // Schema
 const formSchema = new mongoose.Schema({
