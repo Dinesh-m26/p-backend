@@ -13,6 +13,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true // If needed for cookies or other credentials
 }));
+app.options('*', cors()); 
 
 // Database connection
 const mongoURI = process.env.MONGO_URI;
