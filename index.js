@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     origin: 'https://mdinesh.netlify.app', // Allow requests from your Netlify app
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+    methods: ['GET', 'POST'], // Allowed methods
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true // If needed for cookies or other credentials
 }));
