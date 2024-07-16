@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config()
+require('dotenv').config();
 
 const app = express();
 
@@ -13,32 +13,23 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
     credentials: true // If needed for cookies or other credentials
 }));
-app.options('*', cors()); 
+app.options('*', cors());
 
 // Database connection
 const mongoURI = process.env.MONGO_URI;
 mongoose.connect(mongoURI)
-.then(() => console.log("Connected to DB"))
-.catch((error) => console.error("DB connection error:", error));
+    .then(() => console.log("Connected to DB"))
+    .catch((error) => console.error("DB connection error:", error));
 
 // Schema
 const formSchema = new mongoose.Schema({
-    name: {
-        required: true,
-        type: String,
-    },
-    message: {
-        type: String,
-        required: true,
-    },
-    email: {
-        type: mongoose.Schema.Types.Mixed,
-        required: true,
-    }
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    message: { type: String, required: true }
 });
 
 // Model
-const formModel = mongoose.model('data', formSchema);
+const formModel = mongoose.model('Form', formSchema);
 
 // Post data
 app.post('/form', async (req, res) => {
@@ -60,7 +51,7 @@ app.get('/', (req, res) => {
 });
 
 // Set the port
-const port = process.env.PORT ;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log("Server is running on port " + port);
 });
