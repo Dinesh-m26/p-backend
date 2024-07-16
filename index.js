@@ -7,7 +7,12 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'https://mdinesh.netlify.app', // Allow requests from your Netlify app
+    methods: ['GET', 'POST'], // Allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    credentials: true // If needed for cookies or other credentials
+}));
 app.use(express.urlencoded({ extended: true }));
 
 // Database connection
