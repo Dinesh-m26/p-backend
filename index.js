@@ -1,22 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-require('dotenv').config();
+require('dotenv').config()
 
 const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+    origin: 'https://mdinesh.netlify.app', // Allow requests from your Netlify app
+    methods: ['GET', 'POST'], // Allowed methods
+    credentials: true // If you need to send cookies or authentication headers
+}));
 
 // Database connection
 const mongoURI = process.env.MONGO_URI;
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000  // 30 seconds timeout
-})
+mongoose.connect(mongoURI)
 .then(() => console.log("Connected to DB"))
 .catch((error) => console.error("DB connection error:", error));
 
@@ -59,7 +58,7 @@ app.get('/', (req, res) => {
 });
 
 // Set the port
-const port = process.env.PORT || 3000;
+const port = process.env.PORT ;
 app.listen(port, () => {
     console.log("Server is running on port " + port);
 });
